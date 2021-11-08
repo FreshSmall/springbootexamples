@@ -8,6 +8,7 @@ package com.example.demo.example;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
+import org.springframework.stereotype.Component;
 import picocli.CommandLine;
 
 /**
@@ -16,6 +17,7 @@ import picocli.CommandLine;
  * @team wuhan operational dev.
  * @date 2021/11/4 19:04
  **/
+@Component
 public class MyApplicationRunner implements CommandLineRunner,ExitCodeGenerator {
 
     private final MyCommand myCommand;

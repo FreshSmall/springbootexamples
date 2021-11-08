@@ -18,8 +18,8 @@ public class MySpringApp {
     }
 
     @Bean
-    SomeService someService() {
-        return new SomeService();
+    SomeService someService(ServiceDependency dependency) {
+        return new SomeService(dependency);
     }
 
     public static void main(String[] args) {

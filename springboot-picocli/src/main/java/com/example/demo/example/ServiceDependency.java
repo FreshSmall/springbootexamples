@@ -14,4 +14,8 @@ package com.example.demo.example;
  **/
 public class ServiceDependency {
 
+    public String provideSomething() {
+        return "something";
+    }
+
 }

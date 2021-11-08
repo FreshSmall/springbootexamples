@@ -14,7 +14,13 @@ package com.example.demo.example;
  **/
 public class SomeService {
 
+    private final ServiceDependency dependency;
+
+    public SomeService(ServiceDependency dependency) {
+        this.dependency = dependency;
+    }
+
     public String service() {
-        return "this is someService";
+        return dependency.provideSomething();
     }
 }
