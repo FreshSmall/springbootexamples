@@ -1,10 +1,7 @@
 package com.example.springboot.elasticsearch.bean;
 
+
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.io.Serializable;
 
@@ -20,13 +17,9 @@ import java.io.Serializable;
  * </pre>
  */
 @Data
-@Document(indexName = "company",type = "employees",shards = 5,replicas = 1)
 public class Employee implements Serializable {
-    @Id
     private Long id;
-    @Field(type = FieldType.Text)
     private String name;
-    @Field(type = FieldType.Text)
     private String password;
 
     @Override
