@@ -19,7 +19,7 @@ public class CronJob2 {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @Scheduled(cron = "0/5 * * * * *")
+    //    @Scheduled(cron = "0/5 * * * * *")
     public void executeTask() {
         String value = redisTemplate.opsForValue().get(RedisUtil.FLAG);
         if (!StringUtils.isEmpty(value)) {
@@ -27,15 +27,30 @@ public class CronJob2 {
         }
         try {
             redisTemplate.opsForValue().set(RedisUtil.FLAG, "1", 5, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().setIfAbsent(RedisUtil.FLAG, "1");
             Random a = new Random();
-            int secods = a.nextInt(10)+5;
-            int b = 1/0;
+            int secods = a.nextInt(5);
             System.out.println("定时任务CronJob2执行,执行时间:" + DateUtils.dateToString(new Date()) + ",休眠时间:" + secods);
-            Thread.sleep(secods * 1000L);
+        } finally {
+            redisTemplate.delete(RedisUtil.FLAG);
+        }
+    }
+
+    @Scheduled(cron = "0/5 * * * * *")
+    public void executeTask1() {
+        Boolean result = redisTemplate.opsForValue().setIfAbsent(RedisUtil.FLAG_NX, "1");
+        if (Boolean.FALSE.equals(result)) {
+            return;
+        }
+        try {
+            Random a = new Random();
+            int seconds = a.nextInt(4) + 1;
+            System.out.println("定时任务CronJob2执行,执行时间:" + DateUtils.dateToString(new Date()) + ",休眠时间:" + seconds);
+            Thread.sleep(seconds * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            redisTemplate.delete(RedisUtil.FLAG);
+            redisTemplate.delete(RedisUtil.FLAG_NX);
         }
     }
 }

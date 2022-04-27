@@ -6,6 +6,8 @@ public class RedisUtil {
 
     public static final String FLAG = "cron-flag";
 
+    public static final String FLAG_NX = "cron-flag-nx";
+
     private long sleepTime = 100;
     /**
      * 直接使用setnx + expire方式获取分布式锁
