@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Service
-public class OperateServiceImpl implements OperateService{
+public class OperateServiceImpl implements OperateService {
 
     @Autowired
     private PredictTaskLogMapper predictTaskLogMapper;
@@ -20,10 +20,12 @@ public class OperateServiceImpl implements OperateService{
     private PredictImportRecordMapper importRecordMapper;
 
     @Override
-//    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void testSave() {
+
+        System.out.println("开始执行任务");
         String sceneId = "c2ac";
-        Long taskId = 27L;
+        Long taskId = 28L;
         String taskName = "测试任务名称";
 
         /*PredictImportRecordEntity entity = new PredictImportRecordEntity();
@@ -34,15 +36,17 @@ public class OperateServiceImpl implements OperateService{
         importRecordMapper.insert(entity);*/
         save();
 
-        // 保存预测式外呼任务
-        PredictTaskLogEntity predictTask = new PredictTaskLogEntity();
-        predictTask.setSceneId(sceneId);
-        predictTask.setTaskId(taskId);
-        predictTask.setTaskName(taskName);
-        predictTaskLogMapper.insert(predictTask);
+            // 保存预测式外呼任务
+            PredictTaskLogEntity predictTask = new PredictTaskLogEntity();
+            predictTask.setSceneId(sceneId);
+            predictTask.setTaskId(taskId);
+            predictTask.setTaskName(taskName);
+            predictTaskLogMapper.insert(predictTask);
+
+
     }
 
-    public void save(){
+    public void save() {
         String sceneId = "c2ac";
         Long taskId = 27L;
         String taskName = "测试任务名称";
