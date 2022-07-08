@@ -36,16 +36,8 @@ public class OperateServiceImpl implements OperateService {
         importRecordMapper.insert(entity);*/
         save();
 
-            // 保存预测式外呼任务
-            PredictTaskLogEntity predictTask = new PredictTaskLogEntity();
-            predictTask.setSceneId(sceneId);
-            predictTask.setTaskId(taskId);
-            predictTask.setTaskName(taskName);
-            predictTaskLogMapper.insert(predictTask);
-
-
     }
-
+    @Transactional
     public void save() {
         String sceneId = "c2ac";
         Long taskId = 27L;
@@ -57,5 +49,11 @@ public class OperateServiceImpl implements OperateService {
         entity.setPredictTaskId(0L);
         entity.setUData(uData);
         importRecordMapper.insert(entity);
+        // 保存预测式外呼任务
+        PredictTaskLogEntity predictTask = new PredictTaskLogEntity();
+        predictTask.setSceneId(sceneId);
+        predictTask.setTaskId(taskId);
+        predictTask.setTaskName(taskName);
+        predictTaskLogMapper.insert(predictTask);
     }
 }
