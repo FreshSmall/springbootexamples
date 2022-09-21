@@ -2,6 +2,7 @@ package com.example.springboot.cache.service;
 
 import com.example.springboot.cache.bean.Employee;
 import com.example.springboot.cache.mapper.EmployeeMapper;
+import com.example.springboot.cache.repository.EmployeeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class EmployeeService {
 
     @Autowired
     EmployeeMapper employeeMapper;
+
+    @Autowired
+    private EmployeeDao employeeDao;
     /**
      * @Cacheable的key是不能用#result
      *
@@ -54,7 +58,7 @@ public class EmployeeService {
      */
     @Cacheable(value = {"emp"}, /*keyGenerator = "myKeyGenerator",*/key = "#id",condition = "#a0>=1",unless = "#a0==2")
     public Employee getEmp(Integer id) {
-        Employee employee = this.employeeMapper.getEmpById(id);
+        Employee employee = employeeDao.getEmpById(id);
         LOG.info("查询{}号员工数据",id);
         return employee;
     }
