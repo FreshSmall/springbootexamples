@@ -1,3 +1,4 @@
+/*
 package com.example.springboot.cache.service;
 
 import com.example.springboot.cache.bean.Department;
@@ -11,6 +12,7 @@ import org.springframework.cache.support.SimpleValueWrapper;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.stereotype.Service;
 
+*/
 /**
  * <pre>
  *
@@ -21,7 +23,8 @@ import org.springframework.stereotype.Service;
  * 修改记录
  *    修改后版本:     修改人：  修改日期: 2020/04/01 13:41  修改内容:
  * </pre>
- */
+ *//*
+
 @Service
 public class DeptService {
 
@@ -61,3 +64,4 @@ public class DeptService {
 
 
 }
+*/

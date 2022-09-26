@@ -1,11 +1,15 @@
 package com.example.springboot.cache.config;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <pre>
@@ -29,5 +33,17 @@ public class CacheConfig {
                 return method.getName()+"["+ Arrays.asList(params).toString()+"]";
             }
         };
+    }
+
+    @Bean("caffeineCacheManager")
+    public CacheManager cacheManager(){
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager();
+        cacheManager.setCaffeine(Caffeine.newBuilder()
+                .initialCapacity(1)
+                .maximumSize(1)
+                .expireAfterAccess(100, TimeUnit.SECONDS)
+                .weakKeys()
+                .recordStats());
+        return cacheManager;
     }
 }

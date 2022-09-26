@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.zip.DataFormatException;
+
 /**
  * <pre>
  *
@@ -56,10 +59,10 @@ public class EmployeeService {
      *              unless = "#a0==2":如果第一个参数的值是2，结果不缓存；
      *      sync：是否使用异步模式
      */
-    @Cacheable(value = {"emp"}, /*keyGenerator = "myKeyGenerator",*/key = "#id",condition = "#a0>=1",unless = "#a0==2")
+    @Cacheable(value = {"emp"}, /*keyGenerator = "myKeyGenerator",*/key = "#id")
     public Employee getEmp(Integer id) {
+        LOG.info("查询{}号员工数据,时间:{}",id,new Date());
         Employee employee = employeeDao.getEmpById(id);
-        LOG.info("查询{}号员工数据",id);
         return employee;
     }
 

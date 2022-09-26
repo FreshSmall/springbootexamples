@@ -1,3 +1,4 @@
+/*
 package com.example.springboot.cache.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -25,6 +26,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+*/
 /**
  * <pre>
  *  Redis配置类
@@ -35,8 +37,9 @@ import java.util.Map;
  * 修改记录
  *    修改后版本:     修改人：  修改日期: 2020/04/02 15:29  修改内容:
  * </pre>
- */
-@Configuration
+ *//*
+
+//@Configuration
 public class RedisCacheConfig {
 
     @Resource
@@ -106,3 +109,4 @@ public class RedisCacheConfig {
 
 
 }
+*/
