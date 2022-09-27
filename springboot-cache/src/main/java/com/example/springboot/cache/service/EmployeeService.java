@@ -63,7 +63,7 @@ public class EmployeeService {
      */
     @Cacheable(value = {"emp"}, key = "#id")
     public Employee getEmp(Integer id) {
-        LOG.info("查询{}号员工数据,时间:{},count:{}", id, new Date(),atomicInteger.addAndGet(1));
+        LOG.info("线程：{}。查询{}号员工数据,时间:{},count:{}", Thread.currentThread().getName(), id, new Date(), atomicInteger.addAndGet(1));
         try {
             Thread.sleep(100);
         } catch (Exception e) {

@@ -11,17 +11,25 @@ import java.util.concurrent.CountDownLatch;
 @SpringBootTest
 class SpringbootCacheApplicationTests {
 
-    private final CountDownLatch countDownLatch = new CountDownLatch(100);
+    private final CountDownLatch countDownLatch = new CountDownLatch(5);
 
     @Autowired
     private EmployeeService employeeService;
 
     @Test
     void contextLoads() {
-        /*for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5; i++) {
+            int finalI = i;
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    if (finalI %2==0) {
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     employeeService.getEmp(12);
                     countDownLatch.countDown();
                 }
@@ -31,19 +39,7 @@ class SpringbootCacheApplicationTests {
             countDownLatch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
-        Employee emp1 = employeeService.getEmp(12);
-        System.out.println(emp1.toString());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
-        Employee emp = employeeService.getEmp(12);
-        System.out.println(emp.toString());
-
-        Employee emp2 = employeeService.getEmp(12);
-        System.out.println(emp2.toString());
 
         System.out.println("测试完成");
     }

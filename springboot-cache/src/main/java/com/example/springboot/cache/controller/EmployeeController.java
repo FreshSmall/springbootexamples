@@ -2,6 +2,8 @@ package com.example.springboot.cache.controller;
 
 import com.example.springboot.cache.bean.Employee;
 import com.example.springboot.cache.service.EmployeeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmployeeController {
 
+    Logger LOG = LoggerFactory.getLogger(EmployeeController.class);
+
     @Autowired
     EmployeeService employeeService;
 
     @GetMapping(value = {"/emp/{id}"})
     public Employee getEmp(@PathVariable("id")Integer id){
+        LOG.info("线程:{}",Thread.currentThread().getName());
         Employee employee = this.employeeService.getEmp(id);
         return employee;
     }
