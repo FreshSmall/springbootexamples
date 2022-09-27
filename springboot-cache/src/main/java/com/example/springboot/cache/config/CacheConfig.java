@@ -39,9 +39,9 @@ public class CacheConfig {
     public CacheManager cacheManager(){
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
         cacheManager.setCaffeine(Caffeine.newBuilder()
-                .initialCapacity(1)
-                .maximumSize(1)
-                .expireAfterAccess(100, TimeUnit.SECONDS)
+                .initialCapacity(500)
+                .maximumSize(1000)
+                .expireAfterWrite(100, TimeUnit.SECONDS)
                 .weakKeys()
                 .recordStats());
         return cacheManager;
