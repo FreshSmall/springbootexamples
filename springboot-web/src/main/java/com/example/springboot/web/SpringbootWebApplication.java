@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
+import org.zalando.logbook.Logbook;
 
 import java.util.Locale;
 
@@ -20,6 +21,11 @@ public class SpringbootWebApplication {
 	@Bean
 	public ViewResolver testViewResolver(){
 		return new TestViewResolver();
+	}
+
+	@Bean
+	public Logbook logbook(){
+		return Logbook.create();
 	}
 
 	protected static class TestViewResolver implements ViewResolver{
