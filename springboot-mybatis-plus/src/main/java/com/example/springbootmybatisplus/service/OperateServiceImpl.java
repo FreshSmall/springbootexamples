@@ -19,14 +19,14 @@ public class OperateServiceImpl implements OperateService {
     @Autowired
     private PredictImportRecordMapper importRecordMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    @Transactional
     public void testSave() {
 
-        System.out.println("开始执行任务");
-        String sceneId = "c2ac";
-        Long taskId = 28L;
-        String taskName = "测试任务名称";
+//        System.out.println("开始执行任务");
+//        String sceneId = "c2ac";
+//        Long taskId = 28L;
+//        String taskName = "测试任务名称";
 
         /*PredictImportRecordEntity entity = new PredictImportRecordEntity();
         String uData = UUID.randomUUID().toString();
@@ -34,13 +34,10 @@ public class OperateServiceImpl implements OperateService {
         entity.setPredictTaskId(0L);
         entity.setUData(uData);
         importRecordMapper.insert(entity);*/
-        save();
+//        save();
 
-    }
-    @Transactional
-    public void save() {
         String sceneId = "c2ac";
-        Long taskId = 27L;
+        Long taskId = -27L;
         String taskName = "测试任务名称";
 
         PredictImportRecordEntity entity = new PredictImportRecordEntity();
@@ -50,10 +47,44 @@ public class OperateServiceImpl implements OperateService {
         entity.setUData(uData);
         importRecordMapper.insert(entity);
         // 保存预测式外呼任务
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        PredictTaskLogEntity predictTask = new PredictTaskLogEntity();
+        predictTask.setId(279L);
+//        predictTask.setSceneId(sceneId);
+//        predictTask.setTaskId(taskId);
+//        predictTask.setTaskName(taskName);
+        predictTask.setTaskId(-28L);
+//        predictTaskLogMapper.insert(predictTask);
+        predictTaskLogMapper.updateById(predictTask);
+
+    }
+    @Transactional(rollbackFor = Exception.class)
+    public void save() {
+        String sceneId = "c2ac";
+        Long taskId = -27L;
+        String taskName = "测试任务名称";
+
+        PredictImportRecordEntity entity = new PredictImportRecordEntity();
+        String uData = UUID.randomUUID().toString();
+        entity.setSceneId(sceneId);
+        entity.setPredictTaskId(0L);
+        entity.setUData(uData);
+        importRecordMapper.insert(entity);
+        // 保存预测式外呼任务
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         PredictTaskLogEntity predictTask = new PredictTaskLogEntity();
         predictTask.setSceneId(sceneId);
         predictTask.setTaskId(taskId);
         predictTask.setTaskName(taskName);
         predictTaskLogMapper.insert(predictTask);
+        int a = 1/0;
     }
 }

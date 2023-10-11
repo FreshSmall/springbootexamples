@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.zalando.logbook.BodyFilter;
 import org.zalando.logbook.BodyFilters;
 import org.zalando.logbook.ChunkingSink;
 import org.zalando.logbook.CurlHttpLogFormatter;
@@ -56,7 +57,7 @@ public class WebController {
     public Logbook logbook() {
         DefaultSink defaultSink = new DefaultSink(new CurlHttpLogFormatter(), new DefaultHttpLogWriter());
         return Logbook.builder()
-                .sink(new ChunkingSink(defaultSink, 10))
+                .sink(new ChunkingSink(defaultSink, 1000))
                 .requestFilter(RequestFilters.replaceBody(message -> contentType("audio/*").test(message) ? "mmh mmh mmh mmh" : null))
                 .responseFilter(ResponseFilters.replaceBody(message -> contentType("*/*-stream").test(message) ? "It just keeps going and going..." : null))
                 .queryFilter(accessToken())
@@ -68,6 +69,7 @@ public class WebController {
 
     @GetMapping("/hello")
     public String hello(@RequestParam String name) {
+        System.out.println("hello world");
         return "hello world!" + name;
     }
 
