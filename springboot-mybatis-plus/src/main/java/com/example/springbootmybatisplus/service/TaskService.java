@@ -25,17 +25,9 @@ public class TaskService {
                 operateService.testSave();
             }
         });*/
-        CompletableFuture.runAsync(new Runnable() {
-            @Override
-            public void run() {
-                operateService.testSave();
-            }
-        },service).exceptionally(new Function<Throwable, Void>() {
-            @Override
-            public Void apply(Throwable throwable) {
-                System.out.println("出现异常12");
-                return null;
-            }
+        CompletableFuture.runAsync(() -> operateService.testSave(),service).exceptionally(throwable -> {
+            System.out.println("出现异常12");
+            return null;
         });
         return 1;
     }

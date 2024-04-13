@@ -47,19 +47,16 @@ public class OperateServiceImpl implements OperateService {
         entity.setUData(uData);
         importRecordMapper.insert(entity);
         // 保存预测式外呼任务
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         PredictTaskLogEntity predictTask = new PredictTaskLogEntity();
         predictTask.setId(279L);
 //        predictTask.setSceneId(sceneId);
 //        predictTask.setTaskId(taskId);
 //        predictTask.setTaskName(taskName);
-        predictTask.setTaskId(-28L);
+        predictTask.setTaskId(-2008L);
 //        predictTaskLogMapper.insert(predictTask);
         predictTaskLogMapper.updateById(predictTask);
+
+        int a = 1/0;
 
     }
     @Transactional(rollbackFor = Exception.class)
