@@ -1,5 +1,7 @@
 package com.example.springbootmybatisplus.service;
 
+import com.example.springbootmybatisplus.entity.PredictImportRecordEntity;
+import com.example.springbootmybatisplus.mapper.PredictImportRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,9 @@ public class TaskService {
 
     @Autowired
     private OperateService operateService;
+
+    @Autowired
+    private PredictImportRecordMapper predictImportRecordMapper;
 
     private static ExecutorService service = Executors.newFixedThreadPool(1);
 
@@ -36,6 +41,21 @@ public class TaskService {
                 return null;
             }
         });
+        return 1;
+    }
+
+    @Transactional
+    public int testUpdate() throws InterruptedException {
+        PredictImportRecordEntity entity = new PredictImportRecordEntity();
+        entity.setId(46L);
+        entity.setUData("12345678");
+        predictImportRecordMapper.updateById(entity);
+        Thread.sleep(1000);
+        return 2;
+    }
+
+    public int testQuery() {
+        predictImportRecordMapper.selectById(46);
         return 1;
     }
 }
