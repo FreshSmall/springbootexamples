@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class EsConfiguration {
 
     // 集群地址，多个用，隔开
-    private static String hosts = "127.0.0.1";
+    private static String hosts = "192.168.0.8";
     // 使用端口号
     private static int port = 9200;
     // 使用协议
@@ -24,16 +24,16 @@ public class EsConfiguration {
     private static ArrayList<HttpHost> hostList = null;
 
     // 连接超时时间
-    private static int connectTimeOut = 1000;
+    private static final int connectTimeOut = 100;
     // 连接超时时间
-    private static int socketTimeOut = 30000;
+    private static final int socketTimeOut = 100;
     // 获取链接的超时时间
-    private static int connectionRequestTimeOut = 500;
+    private static final int connectionRequestTimeOut = 100;
 
     // 最大连接数
-    private static int maxConnectNum = 100;
+    private static final int maxConnectNum = 5;
     // 最大路由连接数
-    private static int maxConnectPerRoute = 100;
+    private static final int maxConnectPerRoute = 2;
 
     static {
         hostList = new ArrayList<>();
@@ -46,7 +46,7 @@ public class EsConfiguration {
     @Bean
     public RestHighLevelClient client() {
         RestClientBuilder builder = RestClient.builder(hostList.toArray(new HttpHost[0]));
-        /*// 异步httpClient连接延时配置
+        // 异步httpClient连接延时配置
         builder.setRequestConfigCallback(new RestClientBuilder.RequestConfigCallback() {
             @Override
             public RequestConfig.Builder customizeRequestConfig(RequestConfig.Builder builder) {
@@ -64,11 +64,8 @@ public class EsConfiguration {
                 httpAsyncClientBuilder.setMaxConnPerRoute(maxConnectPerRoute);
                 return httpAsyncClientBuilder;
             }
-        });*/
-        RestHighLevelClient client = new RestHighLevelClient(
-                RestClient.builder(
-                        new HttpHost("localhost", 9200, "http")));
-        return client;
+        });
+        return new RestHighLevelClient(builder);
     }
 
 }

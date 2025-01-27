@@ -1,4 +1,13 @@
 spring:
   elasticsearch:
     rest:
-      uris: localhost:9200
+      uris: 192.168.0.8:9200
+      connection-timeout: 1s
+      read-timeout: 5s
+      max-connections: 5      # 最大连接数
+      max-connections-per-route: 2 # 每个路由的最大连接数
+
+logging:
+  level:
+    org.elasticsearch: ERROR
+    org.springframework.data.elasticsearch: ERROR
