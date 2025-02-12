@@ -4,3 +4,8 @@ spring:
   graphql:
     graphiql:
       enabled: true
+graphql:
+  servlet:
+      websocket:
+        path: /subscriptions
+        enable: true

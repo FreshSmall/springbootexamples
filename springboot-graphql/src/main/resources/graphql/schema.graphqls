@@ -1,6 +1,7 @@
 type Query {
     bookById(id: ID): [Book]
     fetchBooks: [Book]
+    hello: String
 }
 
 type Book {
@@ -14,4 +15,17 @@ type Author {
     id: ID
     firstName: String
     lastName: String
+}
+
+type Message {
+    id: ID!
+    content: String!
+}
+
+type Subscription {
+    newMessage: Message
+}
+
+type Mutation {
+    sendMessage(content: String!): Message
 }
