@@ -1,7 +1,7 @@
 package com.demo.state.machine;
 
-import com.demo.state.machine.dto.Events;
-import com.demo.state.machine.dto.States;
+import com.demo.state.machine.dto.AgentEvents;
+import com.demo.state.machine.dto.AgentStates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,21 +16,9 @@ import org.springframework.statemachine.StateMachine;
  * @date: 2024/4/13 18:12
  */
 @SpringBootApplication
-public class Application implements CommandLineRunner {
-
-
-    @Autowired
-    private StateMachine<States, Events> stateMachine;
+public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println("start state machine");
-        stateMachine.sendEvent(Events.E2);
-        stateMachine.sendEvent(Events.E1);
-
     }
 }

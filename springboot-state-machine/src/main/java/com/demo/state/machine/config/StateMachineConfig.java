@@ -1,7 +1,7 @@
 package com.demo.state.machine.config;
 
-import com.demo.state.machine.dto.Events;
-import com.demo.state.machine.dto.States;
+import com.demo.state.machine.dto.AgentEvents;
+import com.demo.state.machine.dto.AgentStates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.config.EnableStateMachine;
@@ -24,45 +24,30 @@ import java.util.EnumSet;
  */
 @Configuration
 @EnableStateMachine
-public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States, Events> {
+public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<AgentStates, AgentEvents> {
 
     @Override
-    public void configure(StateMachineConfigurationConfigurer<States, Events> config)
-            throws Exception {
-        config
-                .withConfiguration()
-                .autoStartup(true)
-                .listener(listener());
-    }
-
-    @Override
-    public void configure(StateMachineStateConfigurer<States, Events> states)
+    public void configure(StateMachineStateConfigurer<AgentStates, AgentEvents> states)
             throws Exception {
         states
                 .withStates()
-                .initial(States.SI)
-                .end(States.S2)
-                .states(EnumSet.allOf(States.class));
+                .initial(AgentStates.FREE)
+                .end(AgentStates.READY)
+                .states(EnumSet.allOf(AgentStates.class));
     }
 
     @Override
-    public void configure(StateMachineTransitionConfigurer<States, Events> transitions)
+    public void configure(StateMachineTransitionConfigurer<AgentStates, AgentEvents> transitions)
             throws Exception {
         transitions
-                .withExternal()
-                .source(States.SI).target(States.S1).event(Events.E1)
+                .withExternal().source(AgentStates.FREE).target(AgentStates.BUSY).event(AgentEvents.BUSY)
                 .and()
-                .withExternal()
-                .source(States.S1).target(States.S2).event(Events.E2);
-    }
-
-    @Bean
-    public StateMachineListener<States, Events> listener() {
-        return new StateMachineListenerAdapter<States, Events>() {
-            @Override
-            public void stateChanged(State<States, Events> from, State<States, Events> to) {
-                System.out.println("State change to " + to.getId());
-            }
-        };
+                .withExternal().source(AgentStates.BUSY).target(AgentStates.FREE).event(AgentEvents.FREE)
+                .and()
+                .withExternal().source(AgentStates.FREE).target(AgentStates.CALLING).event(AgentEvents.OUTCALL)
+                .and()
+                .withExternal().source(AgentStates.CALLING).target(AgentStates.RINGING).event(AgentEvents.RINGING)
+                .and()
+                .withExternal().source(AgentStates.RINGING).target(AgentStates.TWOWAYCHAT).event(AgentEvents.TWOWAYCHAT);
     }
 }
